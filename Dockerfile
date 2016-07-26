@@ -19,6 +19,9 @@ ENV ANDROID_SDK /usr/local/android-sdk-linux
 ENV PATH ${ANDROID_HOME}/tools:$ANDROID_HOME/platform-tools:$PATH
 
 # Install Android SDK components
+ONBUILD COPY android_sdk_components.env /android_sdk_components.env
+ONBUILD RUN (while :; do echo 'y'; sleep 3; done) | android update sdk --no-ui --all --filter "$(cat /android_sdk_components.env)"
+
 
 # License Id: android-sdk-license-ed0d0a5b
 ENV ANDROID_COMPONENTS platform-tools,build-tools-23.0.3,build-tools-24.0.0,android-23,android-24
